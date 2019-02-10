@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.applescript,*.scpt,*scptd setf applescript
+autocmd BufNewFile,BufRead *.applescript,*.scpt,*scptd setfiletype applescript

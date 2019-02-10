@@ -12,7 +12,7 @@
 "           URL: http://www.fastnlight.com/syntax/applescript.vim
 "
 "       History: 1.1 Fork
-"		 1.2 Syntax: Continue
+"    1.2 Syntax: Continue
 "==============================================================================
 
 if version < 600
@@ -20,258 +20,260 @@ if version < 600
 elseif exists("b:current_syntax")
   finish
 endif
-"
+
+" Allow use of line continuation.
+let s:save_cpo = &cpo
+set cpo&vim
+
 " --- Statement ---
-syn keyword scptStmt get set count copy global local prop property
-syn keyword scptStmt close put delete duplicate exists
-syn keyword scptStmt launch open print quit make move reopen save
-syn keyword scptStmt saving into
-hi def link scptStmt Statement
+syntax keyword scptStmt get set count copy global local prop property
+syntax keyword scptStmt close put delete duplicate exists
+syntax keyword scptStmt launch open print quit make move reopen save
+syntax keyword scptStmt saving into
+highlight def link scptStmt Statement
 
 " --- Type ---
-syn keyword scptType text string number integer real color date
-hi def link scptType Type
+syntax keyword scptType text string number integer real color date
+highlight def link scptType Type
 
 " --- Operator ---
-syn keyword scptOp div mod not and or as
-syn match   scptOp "[-+*/^&]"
+syntax keyword scptOp div mod not and or as
+syntax match   scptOp "[-+*/^&]"
 " MacRoman single char :- (divide)
-exec 'syn match scptOp "'.nr2char(214).'"'
-syn match scptOp "\<\(a \)\?\(ref\( to\)\?\|reference to\)\>"
-hi def link scptOp Operator
+execute 'syntax match scptOp "' . nr2char(214) . '"'
+syntax match scptOp "\<\(a \)\?\(ref\( to\)\?\|reference to\)\>"
+highlight def link scptOp Operator
 
 " Containment
-syn match   scptIN "\<starts\? with\>"
-syn match   scptIN "\<begins\? with\>"
-syn match   scptIN "\<ends\? with\>"
-syn match   scptIN "\<contains\>"
-syn match   scptIN "\<does not contain\>"
-syn match   scptIN "\<doesn't contain\>"
-syn match   scptIN "\<is in\>"
-syn match   scptIN "\<is contained by\>"
-syn match   scptIN "\<is not in\>"
-syn match   scptIN "\<is not contained by\>"
-syn match   scptIN "\<isn't contained by\>"
-hi def link scptIN scptOp
+syntax match   scptIN "\<starts\? with\>"
+syntax match   scptIN "\<begins\? with\>"
+syntax match   scptIN "\<ends\? with\>"
+syntax match   scptIN "\<contains\>"
+syntax match   scptIN "\<does not contain\>"
+syntax match   scptIN "\<doesn't contain\>"
+syntax match   scptIN "\<is in\>"
+syntax match   scptIN "\<is contained by\>"
+syntax match   scptIN "\<is not in\>"
+syntax match   scptIN "\<is not contained by\>"
+syntax match   scptIN "\<isn't contained by\>"
+highlight def link scptIN scptOp
 
 " Equals
-syn match   scptEQ "="
-syn match   scptEQ "\<equal\>"
-syn match   scptEQ "\<equals\>"
-syn match   scptEQ "\<equal to\>"
-syn match   scptEQ "\<is\>"
-syn match   scptEQ "\<is equal to\>"
-hi def link scptEQ scptOp
+syntax match   scptEQ "="
+syntax match   scptEQ "\<equal\>"
+syntax match   scptEQ "\<equals\>"
+syntax match   scptEQ "\<equal to\>"
+syntax match   scptEQ "\<is\>"
+syntax match   scptEQ "\<is equal to\>"
+highlight def link scptEQ scptOp
 
 " Not Equals
-syn match   scptNE "\<does not equal\>"
-syn match   scptNE "\<doesn't equal\>"
-syn match   scptNE "\<is not\>"
-syn match   scptNE "\<is not equal\( to\)\?\>"
-syn match   scptNE "\<isn't\>"
-syn match   scptNE "\<isn't equal\( to\)\?\>"
-hi def link scptNE scptOp
+syntax match   scptNE "\<does not equal\>"
+syntax match   scptNE "\<doesn't equal\>"
+syntax match   scptNE "\<is not\>"
+syntax match   scptNE "\<is not equal\( to\)\?\>"
+syntax match   scptNE "\<isn't\>"
+syntax match   scptNE "\<isn't equal\( to\)\?\>"
+highlight def link scptNE scptOp
 " MacRoman single char /=
-exec 'syn match scptNE "'.nr2char(173).'"'
+execute 'syntax match scptNE "' . nr2char(173) . '"'
 
 " Less Than
-syn match   scptLT "<"
-syn match   scptLT "\<comes before\>"
-syn match   scptLT "\(is \)\?less than"
-syn match   scptLT "\<is not greater than or equal\( to\)\?\>"
-syn match   scptLT "\<isn't greater than or equal\( to\)\?\>"
-hi def link scptLT scptOp
+syntax match   scptLT "<"
+syntax match   scptLT "\<comes before\>"
+syntax match   scptLT "\(is \)\?less than"
+syntax match   scptLT "\<is not greater than or equal\( to\)\?\>"
+syntax match   scptLT "\<isn't greater than or equal\( to\)\?\>"
+highlight def link scptLT scptOp
 
 " Greater Than
-syn match   scptGT ">"
-syn match   scptGT "\<comes after\>"
-syn match   scptGT "\(is \)\?greater than"
-syn match   scptGT "\<is not less than or equal\( to\)\?\>"
-syn match   scptGT "\<isn't less than or equal\( to\)\?\>"
-hi def link scptGT scptOp
+syntax match   scptGT ">"
+syntax match   scptGT "\<comes after\>"
+syntax match   scptGT "\(is \)\?greater than"
+syntax match   scptGT "\<is not less than or equal\( to\)\?\>"
+syntax match   scptGT "\<isn't less than or equal\( to\)\?\>"
+highlight def link scptGT scptOp
 
 " Less Than or Equals
-syn match   scptLE "<="
-syn match   scptLE "\<does not come after\>"
-syn match   scptLE "\<doesn't come after\>"
-syn match   scptLE "\(is \)\?less than or equal\( to\)\?"
-syn match   scptLE "\<is not greater than\>"
-syn match   scptLE "\<isn't greater than\>"
-hi def link scptLE scptOp
+syntax match   scptLE "<="
+syntax match   scptLE "\<does not come after\>"
+syntax match   scptLE "\<doesn't come after\>"
+syntax match   scptLE "\(is \)\?less than or equal\( to\)\?"
+syntax match   scptLE "\<is not greater than\>"
+syntax match   scptLE "\<isn't greater than\>"
+highlight def link scptLE scptOp
 " MacRoman single char <=
-exec 'syn match scptLE "'.nr2char(178).'"'
+execute 'syntax match scptLE "' . nr2char(178) . '"'
 
 " Greater Than or Equals
-syn match   scptGE ">="
-syn match   scptGE "\<does not come before\>"
-syn match   scptGE "\<doesn't come before\>"
-syn match   scptGE "\(is \)\?greater than or equal\( to\)\?"
-syn match   scptGE "\<is not less than\>"
-syn match   scptGE "\<isn't less than\>"
-hi def link scptGE scptOp
+syntax match   scptGE ">="
+syntax match   scptGE "\<does not come before\>"
+syntax match   scptGE "\<doesn't come before\>"
+syntax match   scptGE "\(is \)\?greater than or equal\( to\)\?"
+syntax match   scptGE "\<is not less than\>"
+syntax match   scptGE "\<isn't less than\>"
+highlight def link scptGE scptOp
 " MacRoman single char >=
-exec 'syn match scptGE "'.nr2char(179).'"'
+execute 'syntax match scptGE "' . nr2char(179) . '"'
 
 " --- Constant String ---
-syn region  scptString start=+"+ skip=+\\\\\|\\"+ end=+"+
-hi def link scptString String
+syntax region  scptString start=+"+ skip=+\\\\\|\\"+ end=+"+
+highlight def link scptString String
 
 " --- Constant Number ---
-syn match   scptNumber "\<-\?\d\+\>"
-hi def link scptNumber Number
+syntax match   scptNumber "\<-\?\d\+\>"
+highlight def link scptNumber Number
 
 " --- Constant Float ---
-syn match   scptFloat display contained "\d\+\.\d*\(e[-+]\=\d\+\)\="
-syn match   scptFloat display contained "\.\d\+\(e[-+]\=\d\+\)\=\>"
-syn match   scptFloat display contained "\d\+e[-+]\>"
-hi def link scptFloat Float
+syntax match   scptFloat display contained "\d\+\.\d*\(e[-+]\=\d\+\)\="
+syntax match   scptFloat display contained "\.\d\+\(e[-+]\=\d\+\)\=\>"
+syntax match   scptFloat display contained "\d\+e[-+]\>"
+highlight def link scptFloat Float
 
 " --- Constant Boolean ---
-syn keyword scptBoolean true false yes no ask
-hi def link scptBoolean Boolean
+syntax keyword scptBoolean true false yes no ask
+highlight def link scptBoolean Boolean
 
 " --- Other Constants ---
-syn keyword scptConst it me version pi result space tab anything
-syn match   scptConst "\<missing value\>"
+syntax keyword scptConst it me version pi result space tab anything
+syntax match   scptConst "\<missing value\>"
 
 " Considering and Ignoring
-syn match   scptConst "\<application responses\>"
-syn match   scptConst "\<current application\>"
-syn match   scptConst "\<white space\>"
-syn keyword scptConst case diacriticals expansion hyphens punctuation
-hi def link scptConst Constant
+syntax match   scptConst "\<application responses\>"
+syntax match   scptConst "\<current application\>"
+syntax match   scptConst "\<white space\>"
+syntax keyword scptConst case diacriticals expansion hyphens punctuation
+highlight def link scptConst Constant
 
 " Style
-syn match   scptStyle "\<all caps\>"
-syn match   scptStyle "\<all lowercase\>"
-syn match   scptStyle "\<small caps\>"
-syn keyword scptStyle bold condensed expanded hidden italic outline plain
-syn keyword scptStyle shadow strikethrough subscript superscript underline
-hi def link scptStyle scptConst
+syntax match   scptStyle "\<all caps\>"
+syntax match   scptStyle "\<all lowercase\>"
+syntax match   scptStyle "\<small caps\>"
+syntax keyword scptStyle bold condensed expanded hidden italic outline plain
+syntax keyword scptStyle shadow strikethrough subscript superscript underline
+highlight def link scptStyle scptConst
 
 " Day
-syn keyword scptDay Mon Tue Wed Thu Fri Sat Sun
-syn keyword scptDay Monday Tuesday Wednesday Thursday Friday Saturday Sunday
-syn keyword scptDay weekday
-hi def link scptDay scptConst
+syntax keyword scptDay Mon Tue Wed Thu Fri Sat Sun
+syntax keyword scptDay Monday Tuesday Wednesday Thursday Friday Saturday Sunday
+syntax keyword scptDay weekday
+highlight def link scptDay scptConst
 
 " Month
-syn keyword scptMonth Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-syn keyword scptMonth January February March
-syn keyword scptMonth April May June
-syn keyword scptMonth July August September
-syn keyword scptMonth October November December
-syn keyword scptMonth month
-hi def link scptMonth scptConst
+syntax keyword scptMonth Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+syntax keyword scptMonth January February March
+syntax keyword scptMonth April May June
+syntax keyword scptMonth July August September
+syntax keyword scptMonth October November December
+syntax keyword scptMonth month
+highlight def link scptMonth scptConst
 
 " Time
-syn keyword scptTime minutes hours days weeks
-hi def link scptTime scptConstant
-"
+syntax keyword scptTime minutes hours days weeks
+highlight def link scptTime scptConstant
 
 " --- function ---
-syn region  scptFunctionBlock  matchgroup=scptFunction start="^\(on\|to\) \z([a-zA-Z0-9_]\+\)\ze(.*)" end="^end \z1$" transparent fold
-hi def link scptFunction Function
+syntax region  scptFunctionBlock  matchgroup=scptFunction start="^\(on\|to\) \z([a-zA-Z0-9_]\+\)\ze(.*)" end="^end \z1$" transparent fold
+highlight def link scptFunction Function
 
 " --- handler ---
-syn region  scptHandler  matchgroup=scptHandler start="^\<on \z(run\|open\|reopen\|activate\|idle\)\>" end="^end \z1$" transparent fold skipwhite
-hi def link scptHandler Method
+syntax region  scptHandler  matchgroup=scptHandler start="^\<on \z(run\|open\|reopen\|activate\|idle\)\>" end="^end \z1$" transparent fold skipwhite
+highlight def link scptHandler Method
 
 " --- Conditional ---
-syn keyword scptCond if then else
-syn match   scptCond "\<end if\>"
-hi def link scptCond Conditional
-"
+syntax keyword scptCond if then else
+syntax match   scptCond "\<end if\>"
+highlight def link scptCond Conditional
+
 " --- Tell ---
-syn region  scptTell  matchgroup=scptTell start="<\tell\>" end="\<end tell\>" transparent skipwhite
-syn match   scptTell "\<end tell\>"
-hi def link scptTell SpecialStatement
+syntax region  scptTell  matchgroup=scptTell start="<\tell\>" end="\<end tell\>" transparent skipwhite
+syntax match   scptTell "\<end tell\>"
+highlight def link scptTell SpecialStatement
 
 " --- Repeat ---
-syn keyword scptRepeat repeat with from to by continue
-syn match   scptRepeat "\<repeat while\>"
-syn match   scptRepeat "\<repeat until\>"
-syn match   scptRepeat "\<repeat with\>"
-syn match   scptRepeat "\<end repeat\>"
-hi def link scptRepeat Repeat
+syntax keyword scptRepeat repeat with from to by continue
+syntax match   scptRepeat "\<repeat while\>"
+syntax match   scptRepeat "\<repeat until\>"
+syntax match   scptRepeat "\<repeat with\>"
+syntax match   scptRepeat "\<end repeat\>"
+highlight def link scptRepeat Repeat
 
 " --- Exception ---
-syn keyword scptException try error
-syn match   scptException "\<on error\>"
-syn match   scptException "\<end try\>"
-syn match   scptException "\<end error\>"
-hi def link scptException Exception
+syntax keyword scptException try error
+syntax match   scptException "\<on error\>"
+syntax match   scptException "\<end try\>"
+syntax match   scptException "\<end error\>"
+highlight def link scptException Exception
 
 " --- Keyword ---
-syn keyword scptKeyword run times exit
-syn keyword scptKeyword application file alias activate
-syn keyword scptKeyword script return without given
-syn keyword scptKeyword considering ignoring items delimiters
-syn keyword scptKeyword some each every whose where id index item its
-syn keyword scptKeyword first second third fourth fifth sixth seventh
-syn keyword scptKeyword eighth ninth tenth container
-syn match   scptKeyword "\d\+\(st\|nd\|rd\|th\)"
-syn keyword scptKeyword last front back middle named thru through
-syn keyword scptKeyword before after in of the
-syn match   scptKeyword "\<text \>"
-syn match   scptKeyword "\<partial result\>"
-syn match   scptKeyword "\<but ignoring\>"
-syn match   scptKeyword "\<but considering\>"
-syn match   scptKeyword "\<with timeout\>"
-syn match   scptKeyword "\<with transaction\>"
-syn match   scptKeyword "\<do script\>"
-syn match   scptKeyword "\<POSIX path\>"
-syn match   scptKeyword "\<quoted form\>"
-syn match   scptKeyword "'s"
-hi def link scptKeyword Keyword
+syntax keyword scptKeyword run times exit
+syntax keyword scptKeyword application file alias activate
+syntax keyword scptKeyword script return without given
+syntax keyword scptKeyword considering ignoring items delimiters
+syntax keyword scptKeyword some each every whose where id index item its
+syntax keyword scptKeyword first second third fourth fifth sixth seventh
+syntax keyword scptKeyword eighth ninth tenth container
+syntax match   scptKeyword "\d\+\(st\|nd\|rd\|th\)"
+syntax keyword scptKeyword last front back middle named thru through
+syntax keyword scptKeyword before after in of the
+syntax match   scptKeyword "\<text \>"
+syntax match   scptKeyword "\<partial result\>"
+syntax match   scptKeyword "\<but ignoring\>"
+syntax match   scptKeyword "\<but considering\>"
+syntax match   scptKeyword "\<with timeout\>"
+syntax match   scptKeyword "\<with transaction\>"
+syntax match   scptKeyword "\<do script\>"
+syntax match   scptKeyword "\<POSIX path\>"
+syntax match   scptKeyword "\<quoted form\>"
+syntax match   scptKeyword "'s"
+highlight def link scptKeyword Keyword
 
 " US Units
-syn keyword scptUnitUS quarts gallons ounces pounds inches feet yards miles
-syn match   scptUnitUS "\<square feet\>"
-syn match   scptUnitUS "\<square yards\>"
-syn match   scptUnitUS "\<square miles\>"
-syn match   scptUnitUS "\<cubic inches\>"
-syn match   scptUnitUS "\<cubic feet\>"
-syn match   scptUnitUS "\<cubic yards\>"
-syn match   scptUnitUS "\<degrees Fahrenheit\>"
-hi def link scptUnitUS scptKey
+syntax keyword scptUnitUS quarts gallons ounces pounds inches feet yards miles
+syntax match   scptUnitUS "\<square feet\>"
+syntax match   scptUnitUS "\<square yards\>"
+syntax match   scptUnitUS "\<square miles\>"
+syntax match   scptUnitUS "\<cubic inches\>"
+syntax match   scptUnitUS "\<cubic feet\>"
+syntax match   scptUnitUS "\<cubic yards\>"
+syntax match   scptUnitUS "\<degrees Fahrenheit\>"
+highlight def link scptUnitUS scptKey
 
 " British Units
-syn keyword scptUnitBT litres centimetres metres kilometres
-syn match   scptUnitBT "\<square metres\>"
-syn match   scptUnitBT "\<square kilometres\>"
-syn match   scptUnitBT "\<cubic centimetres\>"
-syn match   scptUnitBT "\<cubic metres\>"
-hi def link scptUnitBT scptKey
+syntax keyword scptUnitBT litres centimetres metres kilometres
+syntax match   scptUnitBT "\<square metres\>"
+syntax match   scptUnitBT "\<square kilometres\>"
+syntax match   scptUnitBT "\<cubic centimetres\>"
+syntax match   scptUnitBT "\<cubic metres\>"
+highlight def link scptUnitBT scptKey
 
 " Metric Units
-syn keyword scptUnitMT liters centimeters meters kilometers grams kilograms
-syn match   scptUnitMT "\<square meters\>"
-syn match   scptUnitMT "\<square kilometers\>"
-syn match   scptUnitMT "\<cubic centimeters\>"
-syn match   scptUnitMT "\<cubic meters\>"
-syn match   scptUnitMT "\<degrees Celsius\>"
-syn match   scptUnitMT "\<degrees Kelvin\>"
-hi def link scptUnitMT scptKey
-
+syntax keyword scptUnitMT liters centimeters meters kilometers grams kilograms
+syntax match   scptUnitMT "\<square meters\>"
+syntax match   scptUnitMT "\<square kilometers\>"
+syntax match   scptUnitMT "\<cubic centimeters\>"
+syntax match   scptUnitMT "\<cubic meters\>"
+syntax match   scptUnitMT "\<degrees Celsius\>"
+syntax match   scptUnitMT "\<degrees Kelvin\>"
+highlight def link scptUnitMT scptKey
 
 " --- Comment ---
-syn region  scptComment	start="--" skip="--$" end="$" keepend contains=scptTodo
-syn region  scptComment	start="#" skip="#$" end="$" keepend contains=scptTodo
-syn region  scptComment start="(\*" end="\*)" contains=scptTodo fold
-hi def link scptComment Comment
+syntax region  scptComment start="--" skip="--$" end="$" keepend contains=scptTodo
+syntax region  scptComment start="#" skip="#$" end="$" keepend contains=scptTodo
+syntax region  scptComment start="(\*" end="\*)" contains=scptTodo fold
+highlight def link scptComment Comment
 
 " --- Todo ---
-syn keyword scptTodo containedin=scptComment contained TODO FIXME XXX
-hi def link scptTodo Todo
+syntax keyword scptTodo containedin=scptComment contained TODO FIXME XXX
+highlight def link scptTodo Todo
 
 " --- Continue ---
-syn match   scptContinue "¬"
-hi def link scptContinue SpecialChar
+syntax match   scptContinue "¬"
+highlight def link scptContinue SpecialChar
 
-
-syn sync fromstart
-
+syntax sync fromstart
 
 let b:current_syntax = "applescript"
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
